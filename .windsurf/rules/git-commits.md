@@ -62,6 +62,8 @@ The format should be:
 * Only include sections that have at least one real bullet.
 * Do not add sections with - N/A. If there is nothing relevant for a category in a given version, simply omit that subsection.
 
+
+
 # Commit Message Generation
 
 When generating commit messages:

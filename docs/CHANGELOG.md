@@ -29,3 +29,15 @@
 
 ### Technical Debt
 - Simplified the Section 01 structure and naming to reduce cognitive overhead for contributors and learners, making it easier to navigate and evolve the foundational curriculum.
+
+## [0.3.0] - 2025-11-23
+
+### Changed
+- Refined `1.1-what-is-an-operating-system.md` to explicitly target a sysadmin audience, clarifying that kernel concepts like kernel mode, system calls, virtual memory, page cache, swapping, and D state are introduced as high-level previews.
+- Softened and explained low-level jargon in Section 1.1 performance angles (D state, interrupts, stalls, lockups, throughput) to tie them to observable symptoms in common CLI tools.
+
+## [0.4.0] - 2025-11-23
+
+### Changed
+- Added `Key Terms` sections to `1.4-introduction-to-linux.md`, `1.5-processes-scheduling-and-system-services.md`, and `1.6-filesystem-layout-and-kernel-relevant-paths.md` to align with the authoring rules and make core concepts explicit.
+- Clarified advanced kernel and performance concepts in Section 01 (rings, context-switch costs, scheduler internals, interrupts/softirqs) as high-level previews with plain-language explanations suitable for a sysadmin/SRE audience.
