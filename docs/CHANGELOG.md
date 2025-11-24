@@ -49,3 +49,12 @@
 
 ### Changed
 - Linked Section 1.5 scheduling content to the new nice appendix so readers can dive deeper into CPU priority tuning without overloading the main foundations chapter.
+
+## [0.6.0] - 2025-11-24
+
+### Added
+- Authored full Section 02 CPU documentation: `2.1-cpu-architecture-essentials.md`, `2.2-context-switching-and-kernel-scheduling.md`, `2.3-interrupt-handling-and-irq-mechanisms.md`, and `2.4-kernel-lockups-and-stall-diagnostics.md`, each with Key Terms, diagrams, exercises, and beginner checklists aligned to the Linux performance curriculum rules.
+- Introduced Section 02 demo scripts `scripts/section02-01-cpu-architecture-demo.sh`, `scripts/section02-02-context-switching-demo.sh`, `scripts/section02-03-interrupts-demo.sh`, and `scripts/section02-04-lockup-and-stall-demo.sh` to reproduce CPU-bound workloads, context-switch storms, interrupt-heavy traffic, and CPU starvation scenarios on non-production systems.
+
+### Technical Debt
+- Established a structured template for future Section 02 expansions, ensuring consistent use of terminology, observability-focused examples, and script-backed hands-on labs.
