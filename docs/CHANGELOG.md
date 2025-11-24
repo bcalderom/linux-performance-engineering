@@ -41,3 +41,11 @@
 ### Changed
 - Added `Key Terms` sections to `1.4-introduction-to-linux.md`, `1.5-processes-scheduling-and-system-services.md`, and `1.6-filesystem-layout-and-kernel-relevant-paths.md` to align with the authoring rules and make core concepts explicit.
 - Clarified advanced kernel and performance concepts in Section 01 (rings, context-switch costs, scheduler internals, interrupts/softirqs) as high-level previews with plain-language explanations suitable for a sysadmin/SRE audience.
+
+## [0.5.0] - 2025-11-23
+
+### Added
+- New appendix document `11.1-nice-and-cpu-priority.md` explaining nice values, how they interact with the scheduler, and practical usage with `nice` and `renice`.
+
+### Changed
+- Linked Section 1.5 scheduling content to the new nice appendix so readers can dive deeper into CPU priority tuning without overloading the main foundations chapter.
