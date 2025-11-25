@@ -1,3 +1,18 @@
+## [0.7.0] - 2025-11-25
+
+### Changed
+- Significantly improved accessibility of `2.1-cpu-architecture-essentials.md` for sysadmin/SRE audience transitioning to performance engineering:
+  - Simplified Key Terms by removing IPC (introduced later with perf context) and enhancing definitions with practical analogies and observable metrics.
+  - Restructured hyperthreading section with progressive introduction (concept → when it helps → when it hurts) and visual htop examples showing good vs. bad thread distribution.
+  - Enhanced cache hierarchy section with clear subsections, "What You'll Observe" symptoms, and labeled perf stat as a "Preview" with simpler counters.
+  - Expanded NUMA section to explain the purpose and problem it solves before technical details, added system applicability check, and numastat observation guidance.
+  - Improved frequency scaling section with three concrete scenarios, sample outputs, thermal throttling detection with dmesg, and practical troubleshooting guidance.
+  - Updated Beginner Checklist with more specific, actionable items tied to observable commands and outcomes.
+- Applied "no hidden prerequisites" principle throughout: every concept explained before use, tied to observable commands/metrics, with progressive depth from simple to advanced.
+
+### Technical Debt
+- Established pattern for making advanced performance topics accessible: problem → solution → observation, with clear "What You'll Observe" sections and labeled previews for advanced tools.
+
 ## [0.1.0] - 2025-11-23
 
 ### Added
