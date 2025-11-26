@@ -7,6 +7,10 @@
   - Added a "First Principles" explanation for the top/bottom half split in interrupt handling.
   - Refined the "Interrupt storm" Key Term to highlight its ripple effect on softirq usage.
 - Clarified `2.4-kernel-lockups-and-stall-diagnostics.md` Key Terms by providing a more accessible definition of RCU before explaining RCU stalls.
+- Improved accessibility in `2.1-cpu-architecture-essentials.md` by:
+  - Replacing technical jargon about cache interference with a "neighbor" analogy covering L1/L2 and L3.
+  - Smoothing the transition between the CPU topology diagram and tool interpretation.
+  - Clarifying Hyper-Threading contention with a concrete example of "number crunching" tasks fighting for execution units.
 
 ### Technical Debt
 
