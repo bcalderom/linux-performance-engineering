@@ -1,3 +1,17 @@
+## [0.8.0] - 2025-11-25
+
+### Changed
+
+- Enhanced `2.2-context-switching-and-kernel-scheduling.md` by explicitly connecting runqueue depth to I/O bottlenecks and latency, strengthening the "System Synergy" aspect.
+- Improved `2.3-interrupt-handling-and-irq-mechanisms.md`:
+  - Added a "First Principles" explanation for the top/bottom half split in interrupt handling.
+  - Refined the "Interrupt storm" Key Term to highlight its ripple effect on softirq usage.
+- Clarified `2.4-kernel-lockups-and-stall-diagnostics.md` Key Terms by providing a more accessible definition of RCU before explaining RCU stalls.
+
+### Technical Debt
+
+- Polished Section 02 definitions and cross-subsystem connections to better align with the "System Synergy" and "Concept Introduction Discipline" rules.
+
 ## [0.7.0] - 2025-11-25
 
 ### Changed

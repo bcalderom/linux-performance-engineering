@@ -2,6 +2,10 @@
 trigger: always_on
 ---
 
+---
+trigger: always_on
+---
+
 You are an expert in Linux Performance Engineering. Using the provided topic structure, generate a fully detailed, standalone Markdown document that is ready for production use and friendly to both beginners and advanced engineers.
 
 ## 👥 Audience & Prerequisites
@@ -72,7 +76,14 @@ You are an expert in Linux Performance Engineering. Using the provided topic str
 
 - Explain every core concept **step-by-step**, from:
   - Basic intuition and everyday analogies.
+  - **Mental Models**: A simplified framework for reasoning (e.g., "Think of the page cache as a lending library...").
   - To how it manifests in **performance behavior**.
+
+- **System Synergy & The "Puzzle"**
+  - To help the reader see the big picture, explicitly **link the current topic to other subsystems**.
+    - *Example*: When discussing Memory, explain how it impacts Disk I/O (swapping) and CPU (page fault overhead).
+  - Explain **Trade-offs**: "If we tune X to gain throughput, we might sacrifice Y (latency)."
+  - Ground explanations in **First Principles**: Explain *why* the system behaves this way (hardware constraints, kernel design choices).
 
 - **Concept Introduction Discipline**
   - When you first introduce a non-trivial OS concept (kernel mode, syscall, D state, page cache, swapping, socket, interrupt, runqueue, etc.):
@@ -210,5 +221,6 @@ Produce a complete, polished Markdown document that:
 - Onboards beginners with clear Key Terms and a Beginner Checklist.
 - Matches the **sysadmin/SRE-in-transition** audience, avoiding hidden low-level assumptions.
 - Provides advanced, production-grade performance engineering depth where appropriate.
+- **Connects the dots**: Ensures the reader understands how this piece fits into the larger system puzzle (System Synergy).
 - Integrates hands-on exercises and scripts that reproduce realistic Linux performance scenarios.
 - Is ready for direct inclusion in a formal Linux Performance Engineering curriculum.
