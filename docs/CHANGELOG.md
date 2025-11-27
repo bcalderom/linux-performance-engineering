@@ -1,3 +1,72 @@
+## [0.9.10] - 2025-11-26
+
+### Changed
+
+- Refined the `mpstat` explanation in `2.2-context-switching-and-kernel-scheduling.md` to explicitly point to the `%idle` column for identifying scheduling imbalances and single-threaded saturation.
+
+## [0.9.9] - 2025-11-26
+
+### Changed
+
+- Added sample `mpstat -P ALL 1` output to `2.2-context-switching-and-kernel-scheduling.md` to demonstrate how to identify scheduling imbalances and per-CPU idle states.
+
+## [0.9.8] - 2025-11-26
+
+### Changed
+
+- Further refined the explanation for "Load 0.25 on 4 CPUs" in `2.2-context-switching-and-kernel-scheduling.md` to avoid ambiguity by explicitly contrasting single-CPU capacity usage (25%) with total system idleness (93.75%).
+
+## [0.9.7] - 2025-11-26
+
+### Changed
+
+- Refined the explanation for "Load 0.25 on 4 CPUs" in `2.2-context-switching-and-kernel-scheduling.md` to explicitly address "how many" CPUs are occupied (effectively 25% of one CPU).
+
+## [0.9.6] - 2025-11-26
+
+### Fixed
+
+- Corrected the interpretation of "Load 0.25 on 4 CPUs" in `2.2-context-switching-and-kernel-scheduling.md` to accurately state that the system is mostly idle (93.75% idle), fixing a previous error that claimed full utilization.
+
+## [0.9.5] - 2025-11-26
+
+### Changed
+
+- Clarified the "Load N on N CPUs" explanation in `2.2-context-switching-and-kernel-scheduling.md` to explicitly state that this indicates 100% utilization because the average number of tasks equals the number of available CPUs.
+
+## [0.9.4] - 2025-11-26
+
+### Changed
+
+- Added "Contention" to the Key Terms section in `2.2-context-switching-and-kernel-scheduling.md` to formalize the concept of resource competition.
+
+## [0.9.3] - 2025-11-26
+
+### Changed
+
+- Refined Load Average explanation in `2.2-context-switching-and-kernel-scheduling.md` to explicitly link the grocery store analogy to a single CPU (single checkout lane) and added a breakdown of how to interpret load 1.0 vs 4.0 across different CPU counts.
+
+## [0.9.2] - 2025-11-26
+
+### Changed
+
+- Added a simplified "grocery store" arithmetic explanation to the Load Average section in `2.2-context-switching-and-kernel-scheduling.md` to clarify that load is an average queue length, not a rate (tasks/minute).
+
+## [0.9.1] - 2025-11-26
+
+### Changed
+
+- Expanded `pidstat` coverage in `2.2-context-switching-and-kernel-scheduling.md`:
+  - Added realistic sample output for `pidstat -w 1`.
+  - Provided a detailed explanation of the difference between voluntary (`cswch/s`) and non-voluntary (`nvcswch/s`) context switches, with examples of I/O-bound vs. CPU-bound behavior.
+
+## [0.9.0] - 2025-11-26
+
+### Changed
+
+- Added sample output for `vmstat` in `2.2-context-switching-and-kernel-scheduling.md` to illustrate where to find the context switch count (`cs`).
+- Refined the explanation of the `vmstat` sample in `2.2-context-switching-and-kernel-scheduling.md` to explicitly connect the data spike (1200 -> 4500 cs) with the increase in runqueue depth (2 -> 6 r).
+
 ## [0.8.0] - 2025-11-25
 
 ### Changed
