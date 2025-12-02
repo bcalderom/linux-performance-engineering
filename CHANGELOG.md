@@ -1,3 +1,23 @@
+## [0.9.12] - 2025-12-01
+
+### Changed
+
+- Rewrote `2.3-interrupt-handling-and-irq-mechanisms.md` to strictly adhere to the Concept Connection Framework.
+  - Introduced the "Two-Halves Model" with a receptionist/caseworker analogy.
+  - Added a concept chain for the packet processing path.
+  - Included a "Real-World Failure Scenario" involving a single-core bottleneck due to poor IRQ affinity.
+  - Clarified the role of `ksoftirqd` and its relationship to `%si`.
+
+## [0.9.11] - 2025-12-01
+
+### Changed
+
+- Rewrote `2.2-context-switching-and-kernel-scheduling.md` to strictly adhere to the Concept Connection Framework and new pedagogical rules.
+  - Explicitly separated "Voluntary" vs "Non-Voluntary" context switches with a comparison table and observable symptoms.
+  - Added a "Concept Chain" for the runqueue cycle.
+  - Included a "Real-World Failure Scenario" about a chatty microservice to illustrate voluntary switching costs.
+  - Improved the "Load Average" explanation with a clearer distinction between CPU usage and runqueue demand.
+
 ## [0.9.10] - 2025-11-26
 
 ### Changed
