@@ -1,3 +1,24 @@
+## [0.9.16] - 2025-12-03
+
+### Added
+
+- **New section 2.3.6 "How Priority Really Works Across IRQs, SoftIRQs, and the Scheduler":** Comprehensive explanation of the system-wide priority hierarchy establishing that Hard IRQs → SoftIRQs → ksoftirqd → DEADLINE → RT → CFS → BATCH → IDLE.
+- **Priority note sidebar in 2.2.5:** Call-out box clarifying that scheduler classes are below interrupt priority, with cross-reference to 2.3.6.
+- **Glossary cross-references in Key Terms:** Both 2.2 and 2.3 now include cross-reference entries pointing to related concepts in the other chapter (Interrupt Context, SoftIRQ/Hard IRQ, Priority Hierarchy in 2.2; Scheduling Class, Context Switch, Runqueue in 2.3).
+
+### Changed
+
+- **Updated 2.2.4 cross-reference:** Now explicitly points to section 2.3.6 for the full system-wide priority hierarchy.
+- **Added cross-link in 2.3.2.2:** Explicit reference to chapter 2.2 for scheduler details during context switch discussions.
+- **Expanded 2.3.10 Beginner Checklist:** Added items for priority hierarchy recitation, understanding nice value limitations, and mode switch vs context switch distinction.
+- **Renumbered 2.3 sections:** Old 2.3.6-2.3.9 became 2.3.7-2.3.10 to accommodate new priority hierarchy section.
+
+### Technical Debt
+
+- Resolved foundational gap where priority relationships between interrupts, softirqs, and scheduler decisions were not explicitly documented.
+- Established single authoritative location (2.3.6) for the kernel priority hierarchy, preventing future duplication or contradictory explanations.
+- Chapters 2.2 and 2.3 now have clear, non-overlapping responsibilities with explicit bidirectional cross-references.
+
 ## [0.9.15] - 2025-12-03
 
 ### Changed

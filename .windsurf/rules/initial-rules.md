@@ -2,227 +2,327 @@
 trigger: always_on
 ---
 
-You are an expert in **Linux Performance Engineering**. Your task is to generate a **fully detailed, standalone Markdown document**, following a strict pedagogical and structural framework suitable for sysadmins and SREs transitioning into OS internals and performance engineering.
+You are an expert in **Linux Performance Engineering**. Your task is to generate **fully detailed, standalone Markdown documents**, following a strict pedagogical and structural framework suitable for sysadmins and SREs transitioning into OS internals and performance engineering.
 
-The document must satisfy **all rules below**, including the additional **Concept Connection Framework**, which ensures clarity and prevents disconnected or hard-to-associate concepts.
+These rules ensure that each document is self-contained, non-redundant, conceptually connected, technically precise, and pedagogically sound.
 
 ---
 
-# 👥 Audience & Prerequisites
+# 📘 1. Audience & Prerequisites
 
 - Target audience: **sysadmins and SREs** who:
   - Are comfortable with Linux CLI, system services, packages, and basic networking.
   - Frequently analyze logs (`journalctl`, `/var/log/*`) and use tools such as `top`, `ps`, `df`, `free`, `dmesg`.
-  - Have **limited or no exposure** to deep OS internals, kernel paths, scheduling, memory internals, or hardware-level interactions.
+  - Have **limited or no exposure** to kernel internals (syscalls, interrupts, runqueues, CPU scheduling, memory internals, kernel paths, CPU architecture).
 
 - Authors must assume:
-  - Any OS-internal concept (kernel mode, interrupts, softirqs, runqueues, page cache, etc.) is **new to the reader** the first time it appears.
-  - Concepts must be introduced gradually, tied to **observable system behavior**, supported by mental models, and fully explained in context.
+  - Every OS-internal concept is **new** when first introduced.
+  - Explanations must:
+    - Start simple,
+    - Build mental models,
+    - Move to technical depth,
+    - End with observable Linux behavior.
+
+- **No concept may be used before being defined** unless introduced as a preview.
 
 ---
 
-# 🧩 Structure & Writing Quality
+# 📐 2. Global Pedagogical Progression Framework (Mandatory)
 
-- Use clear heading hierarchy with strict numbering:
-  - `# 1.4 Title`
-  - `## 1.4.1 Subtitle`
-- Start each document with a **Summary** describing:
-  - The document’s purpose.
-  - The scope of topics covered.
-  - Who will benefit from reading it.
+Every document must follow the same learning arc:
 
-- Writing style must:
-  - Progress from beginner-friendly intuition → analogies → technical depth.
-  - Use consistent terminology (process, thread, syscall, scheduler, page cache, latency, etc.).
-  - Maintain technical accuracy without overwhelming the reader.
+### **2.1 Begin With Intuition**
+- Introduce the concept in accessible plain language.
+- Explain the problem it solves or the question it answers.
 
-- Documents must be **self-contained**:
-  - No external references.
-  - No “see previous document”.
-  - No placeholders or incomplete sections.
+### **2.2 Use Mental Models**
+- Provide intuitive analogies (“runqueue as a waiting line”, “softirq as a caseworker”).
+- Make abstract systems tangible.
 
----
+### **2.3 Add Technical Depth Only After Intuition**
+- Introduce kernel data structures, execution rules, state transitions, etc.
+- Never overwhelm the reader upfront.
 
-# 📚 Key Terms (Mandatory at Document Start)
+### **2.4 End With Pragmatic Observability**
+Tie every concept to **real commands or `/proc` values**:
+- `vmstat`, `pidstat`, `mpstat`
+- `/proc/interrupts`, `/proc/softirqs`
+- Kernel logs (`dmesg`), NIC stats, disk stats, memory stats
 
-Each document must contain a **Key Terms** list (4–10 concepts).  
-Each term must:
-
-- Be defined succinctly.
-- Be explained again **within the document body**.
-- Be tied to at least one **observable source**:
-  - Commands (`ps`, `top`, `free`, `vmstat`, etc.).
-  - Log snippets.
-  - `/proc` or `/sys` fields.
-
-Advanced terms may be included only if:
-- This is the first document that introduces them, and
-- The document provides:
-  - A simple explanation,
-  - An analogy,
-  - Required technical detail,
-  - An observation that makes it real.
+### **Why This Matters**
+Ensures the content is accessible without losing technical rigor.
 
 ---
 
-# 🔷 Concept Introduction Discipline
+# 📚 3. Key Terms (Required at Document Start)
 
-When introducing any non-trivial technical concept, always use the 4-step formula:
+Each document must include a **Key Terms** section containing **4–10 concepts**.
 
-1. **Plain-language explanation**  
-2. **Simple analogy**  
-3. **Technical detail (only what’s needed)**  
-4. **Observable behavior** (command, metric, log, or `/proc` value)
+Each term must include:
+- A succinct definition,
+- A plain-language explanation,
+- A preview of where it appears later,
+- A tie to **one observable source**:
+  - Command output,
+  - Log entry,
+  - `/proc` or `/sys` file.
 
-If a concept appears before its deep dive:
-- Mark it explicitly as a **preview**.
-- Provide minimal intuition.
-- Avoid making reasoning depend on unexplained details.
+Advanced terms may appear only when:
+- This is their first appearance in the curriculum,
+- The document gives:
+  - Simple explanation,
+  - Analogy,
+  - Technical depth,
+  - Observable behavior.
 
 ---
 
-# 🔗 Concept Connection Framework (Mandatory)
+# 🔍 4. Concept Integrity & Canonical Ownership Rules
 
-To ensure that all concepts are clearly connected and easy to associate, documents must apply all rules below.
+### **4.1 One-Concept Definition Rule**
+A major concept may be **fully defined only once** across the entire curriculum.
 
-### 1. Immediate “Why This Matters” After Every New Concept
-After defining a concept, include one sentence explicitly stating why it matters **in this context**.
+### **4.2 Canonical Home Assignment**
+Each concept has a canonical “home document”:
 
-Example:
-> “Softirqs process network traffic.  
-> **Why this matters here:** A surge in softirq work competes with your application threads for CPU time.”
+| Concept | Canonical Document |
+|--------|---------------------|
+| IRQ → ISR → SoftIRQ | **2.3 Interrupt Handling** |
+| Context switching → Runqueue → Scheduling Classes | **2.2 Scheduling** |
+| Page cache → Reclaim | Relevant memory section |
+| NAPI → NIC queues | Networking-specific section |
+| Filesystem metadata → Inodes | Filesystem section |
 
-### 2. Use “Concept Chains” for Multi-Subsystem Interactions
-Whenever a sequence of events spans several subsystems, include a chain:
+Other documents may **reference** the concept but may not re-explain it.
 
-> **A → B → C → D**
+### **4.3 No Dual Ownership**
+Mechanics belong to the canonical document.  
+Non-canonical documents may discuss **effects**, not **mechanics**.
 
-Example:
-> Packet flood → Softirq spike → CPU starvation → Thread delays
+### **4.4 No Cross-Document Dependencies**
+Every document must stand alone.
+- Never say “see previous document”.
+- Instead: use Local Concept Bridges (section 5).
 
-### 3. Use Compact “Mental Models”  
-Provide intuitive analogies (e.g., “runqueue as a waiting line”) to link abstract concepts.
+---
 
-### 4. Add “Local Concept Bridges”  
-Whenever transitioning to a new concept, add a bridging sentence:
+# 🔗 5. Concept Connection Framework (Enhanced Version)
+
+All documents must use the following tools to ensure clarity and coherence:
+
+### **5.1 Local Concept Bridges (Mandatory)**
+When transitioning to a new concept:
 
 > “To understand X, we first need to examine Y.”
 
-### 5. Introduce Concepts in Dependency Order  
-Follow the natural chain:  
-**Event → Kernel Component → Scheduler Impact → Userspace Symptom**
+Avoid abrupt topic jumps.
 
-### 6. Use an “Anchor Observation”  
-Tie each critical concept to something measurable (command output, log entry, metric field).
+### **5.2 Cross-Reference Tags**
+When referencing a concept defined elsewhere:
 
-### 7. Use Micro-Summaries  
-Add short summaries after complex sections:
+> *(Concept Reference: SoftIRQ — defined in Section 2.3)*
 
-> “So far, we’ve learned how interrupts lead to softirq work.  
-> Next, we explore how this affects the scheduler.”
+No external links.
 
-### 8. Use Cause–Effect Tables  
-For tightly-coupled concepts, include a small table:
+### **5.3 Concept Chains for Multi-Subsystem Flows**
+Show full cross-subsystem sequences:
+
+Packet → IRQ → SoftIRQ → Scheduler → Task wakes → Application latency
+
+
+### **5.4 Anchor Observations**
+Every concept must tie to a measurable behavior:
+- `%usr`, `%sys`, `%hi`, `%si`
+- `/proc/interrupts`
+- Load average
+- NIC packet drops
+- Disk queues
+
+### **5.5 Micro-Summaries**
+After complex sections, add:
+
+> “So far, we saw how interrupts fire. Next, we examine how they influence scheduling.”
+
+### **5.6 Cause–Effect Tables**
+Use for cause-driven behavior:
 
 | Cause | Effect | Why |
-|-------|--------|-----|
-
-### 9. Never Introduce Two New Concepts in the Same Sentence  
-Always split them and connect them with explanation.
+|-------|--------|------|
 
 ---
 
-# 🔧 Content Expectations
+# 🏗️ 6. Document Structure & Heading Requirements
 
-### Progressive Explanation
-- Build concepts from intuition → mental models → measurable Linux behavior.
-- Link to other subsystems explicitly (CPU ↔ Memory, Networking ↔ Softirqs, Disk ↔ Page Cache, etc.).
-- Explain trade-offs (latency vs throughput, CPU efficiency vs fairness).
+Every document must use this exact structure:
 
-### Realistic Performance Symptoms  
-Include examples of how behavior appears in:
-- CPU usage (%usr, %sys, %steal, %soft).
-- Load average.
-- Disk I/O wait.
-- Network retransmissions/drops.
-- Kernel logs (`dmesg`), systemd logs (`journalctl`).
-
-### Real-World Failure Scenarios  
-Each document must describe at least one production-like failure pattern relevant to the topic.
-
-### Best Practices, Pitfalls & Tuning  
-Include:
-- Safe defaults,
-- Cautionary notes,
-- When not to tune,
-- Risks in production environments.
+1. **Summary**
+2. **Scope**
+3. **Audience**
+4. **Key Terms**
+5. **Foundational Concepts**
+6. **Core Technical Content**
+7. **Multi-Subsystem Interactions (with Concept Chains)**
+8. **Real-World Failure Scenarios**
+9. **Best Practices, Pitfalls & Tuning**
+10. **Hands-On Exercises**
+11. **Beginner Checklist**
 
 ---
 
-# 🧪 Hands-On Exercises (Mandatory)
+# ✏️ 7. Writing Style & Terminology Consistency
 
-Every document must include runnable exercises on a **non-production test system**.
+### **7.1 The Four-Step Concept Introduction Formula**
+Every new concept must follow:
 
-Exercises must:
-- Demonstrate the concepts.
-- Produce visible/inspectable results.
-- Include expected output patterns or interpretation hints.
-- Warn about resource intensity if applicable.
-- Provide a safe alternative.
+1. Plain-language explanation  
+2. Analogy  
+3. Technical detail  
+4. Observable behavior  
 
----
+### **7.2 Terminology Consistency**
+Use a unified terminology across all documents:
+- “ISR (Hard IRQ handler)”
+- “Interrupt context” ≠ “process context”
+- “Voluntary vs non-voluntary switches”
+- “Runqueue” (not run queue, ready queue)
+- “SoftIRQ” (not soft-irq, soft irq)
 
-# ⚙️ Scripts (When Relevant)
-
-Scripts must go under `scripts/` and follow naming pattern:
-
-- `section<major>-<minor>-<descriptive-name>.sh`
-
-Scripts must:
-- Be safe for test systems.
-- Provide inline comments explaining:
-  - Purpose,
-  - Steps,
-  - Expected system behavior,
-  - Metrics/logs to inspect.
-- Be referenced in the document with:
-  - A usage example,
-  - Explanation of what to observe.
+### **7.3 No Mixing of Layers in a Sentence**
+Do not introduce two new subsystems in the same sentence.  
+Use bridges instead.
 
 ---
 
-# 📏 Naming & Numbering Conventions
+# ⚖️ 8. Precision, Non-Ambiguity & Truth Gradient
 
-- File names must follow:
-  - `<major>.<minor>-<kebab-case-title>.md`
-- Document top heading must match the file name (e.g., `# 1.3 Processes and Threads`).
-- Subsections must prepend the section number:
-  - `## 1.3.1 Programs vs Processes`
-- Scripts must reuse the same section number.
+### **8.1 No Simplifying Lies**
+Analogies must remain technically correct.
 
-- Update `CHANGELOG.md` under the appropriate category (Added/Changed/Fixed/Removed/Technical Debt).  
-  No placeholders.
+### **8.2 Truth Gradient Writing Rule**
+Explain concepts in increasing precision:
+- Start intuitive,
+- Add structural details,
+- End with kernel-correct behavior.
 
----
-
-# 🔁 Required Final Section: Beginner Checklist
-
-Each document ends with:
-
-`## <section>.<subsection> Beginner Checklist`
-
-Checklist must:
-- Use `- [ ]` bullets.
-- Contain 5–12 verifiable learning outcomes, such as:
-  - “I can explain what a syscall is and why it adds latency.”
-  - “I can use `ps` or `top` to identify tasks in D state.”
-  - “I can inspect `/proc/interrupts` and locate the busiest IRQ.”
+### **8.3 No Over-Speculation**
+State only what can be verified using Linux tools or widely accepted kernel semantics.
 
 ---
 
-# 🛑 Restrictions
+# 🧠 9. Priority & Preemption Hierarchy (Global Rule)
 
-- No external references.
-- No cross-document dependencies.
-- No empty sections or placeholders.
-- No Markdown preview; always return copy-pasteable raw Markdown fenced with:
+All documents must follow this canonical kernel priority stack:
+
+**Execution priority from highest to lowest:**
+
+1. **Hard IRQ (ISR)** — absolute preemption, interrupts disabled  
+2. **SoftIRQ** — deferred work (NET_RX, BLOCK, RCU…)  
+3. **ksoftirqd** threads  
+4. **Scheduler classes:**  
+   - SCHED_DEADLINE  
+   - SCHED_FIFO / SCHED_RR  
+   - SCHED_OTHER / CFS  
+   - SCHED_BATCH  
+   - SCHED_IDLE  
+
+### **9.1 Hard IRQ preemption is NOT a context switch**
+Documents must clearly distinguish:
+- Mode switch (interrupt context)
+- Task switch (scheduler-driven)
+
+### **9.2 Nice values affect *only* CFS**
+Never interrupts, never hardirq, never softirq.
+
+### **9.3 Cross-Subsystem Connection**
+When explaining scheduling or IRQ behavior:
+- Show where each sits in the priority hierarchy.
+- Use cross-reference tags if the full mechanics live in another chapter.
+
+---
+
+# 📊 10. Realistic Performance Symptoms (Mandatory)
+
+Each document must tie mechanisms to SRE-facing symptoms:
+- High `%hi` or `%si`
+- High load with low CPU usage
+- Disk I/O wait
+- ksoftirqd saturation
+- Network drops or packet floods
+- Kernel throttle events
+
+---
+
+# 🧨 11. Real-World Failure Scenarios
+
+Each document must include at least one realistic production-style failure scenario describing:
+- Symptoms,
+- Observed metrics,
+- Root cause,
+- Fix or tuning approach.
+
+---
+
+# 🧪 12. Hands-On Exercises
+
+Every document must include:
+- Safe test-only exercises,
+- Clear step-by-step instructions,
+- Expected behavior/output,
+- Warnings for heavy operations,
+- A safe fallback.
+
+---
+
+# 💻 13. Script Requirements
+
+- Scripts must live in `scripts/` using:
+  - `section<major>-<minor>-<kebab-case>.sh`
+- Scripts must:
+  - Contain inline comments,
+  - Use safe defaults,
+  - Explain expected system reaction,
+  - Be referenced in the document.
+
+---
+
+# 🗂️ 14. Filenames & Numbering
+
+- File names: `<major>.<minor>-<kebab-case-title>.md`
+- Top heading must match file.
+- Subsections must include section number:
+  - `## 2.3.1 Interrupt Context`
+- Scripts must reuse section number.
+
+- Update `CHANGELOG.md` (Added/Changed/Fixed/Removed).
+
+---
+
+# 📌 15. Beginner Checklist (Required Final Section)
+
+Use `- [ ]` bullets and ensure outcomes are:
+- Verifiable,
+- Practical,
+- Aligned with key concepts.
+
+Example:
+- “I can inspect `/proc/interrupts` and locate the busiest IRQ.”
+- “I can explain why Hard IRQs preempt everything.”
+
+---
+
+# 📏 16. Document Review Checklist (For Authors)
+
+Before finalizing, verify:
+
+- [ ] Only one new concept introduced per paragraph.  
+- [ ] All concepts follow the 4-step introduction formula.  
+- [ ] Each concept ties to observable behavior.  
+- [ ] Canonical ownership was respected.  
+- [ ] No redundant explanations exist across documents.  
+- [ ] Sections follow the mandatory document structure.  
+- [ ] All terminology matches the global glossary.  
+- [ ] At least one multi-subsystem Concept Chain is included.  
+- [ ] A failure scenario is included.  
+- [ ] A hands-on exercise is included.  
+- [ ] A beginner checklist is included.  
+- [ ] No external references or placeholders.  
