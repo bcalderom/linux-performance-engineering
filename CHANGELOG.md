@@ -1,3 +1,37 @@
+## [0.9.15] - 2025-12-03
+
+### Changed
+
+- **Eliminated duplication between 2.2 and 2.3:** Shortened section 2.2.4 from detailed interrupt mechanics to a brief cross-reference, keeping all ISR/softirq/IDT/NAPI/MSI-X content exclusively in 2.3.
+- **Added cross-references:** Both chapters now explicitly reference each other at key points (scope sections, micro-summaries, checklists) to guide readers without duplicating content.
+- **Updated Beginner Checklists:** Both 2.2 and 2.3 checklists now include items clarifying the conceptual boundary between chapters.
+
+### Technical Debt
+
+- Established clear architectural boundary: 2.2 covers task scheduling (runqueues, CFS, preemption); 2.3 covers interrupt processing (ISR, softirq, NAPI). Neither duplicates the other's domain.
+
+## [0.9.14] - 2025-12-03
+
+### Added
+
+- **Scheduling Classes Hierarchy (2.2.5):** Comprehensive coverage of SCHED_DEADLINE, SCHED_FIFO, SCHED_RR, SCHED_OTHER (CFS), SCHED_BATCH, and SCHED_IDLE with hierarchy rules and observable commands.
+- **Preemption Models and Tick Behavior (2.2.7):** Explanation of PREEMPT_NONE, PREEMPT_VOLUNTARY, PREEMPT, and PREEMPT_RT kernel configurations, plus NO_HZ tickless modes.
+- **Detailed Context Switch Causes (2.2.8.1):** Tables mapping syscalls/mechanisms to voluntary and non-voluntary switch triggers.
+- **Per-CPU Runqueues, Load Balancing, and NUMA (2.2.9):** Coverage of per-CPU runqueue architecture, push/pull migration, NUMA-aware scheduling, and migration costs.
+- **Real Cost of Context Switch (2.2.10):** Hardware-level breakdown including register save/restore, TLB flush, cache effects, and measured latencies (1-30 µs) for different switch types.
+- **Measuring Scheduling Latency (2.2.11):** Introduction to `perf sched latency`, `perf sched timehist`, and `cyclictest` with sample outputs and interpretation guidance.
+- **Load Average on Multicore/Virtualized Systems (2.2.12):** Expanded interpretation for multicore systems, D-state task diagnosis, and virtualization considerations (%steal, burstable instances).
+- **Scheduler vs IRQ Affinity Pitfalls (2.2.13):** New section on task/IRQ co-location trade-offs, irqbalance conflicts, and isolation strategies.
+- **CPU-Bound Starvation Scenario (2.2.15):** New failure scenario demonstrating nice value abuse and cgroup-based remediation.
+- **I/O-Bound Voluntary Switch Storm Scenario (2.2.16):** New failure scenario showing high load with low CPU usage due to disk bottlenecks.
+
+### Changed
+
+- Expanded Key Terms (2.2.1) with Scheduling Class and Scheduling Latency definitions.
+- Updated Scope section to reflect comprehensive coverage of scheduling internals.
+- Expanded Beginner Checklist (2.2.18) from 6 to 13 items covering scheduling classes, preemption models, latency measurement, D-state diagnosis, virtualization, and IRQ affinity.
+- Renumbered all sections to accommodate new content (2.2.4-2.2.18).
+
 ## [0.9.13] - 2025-12-02
 
 ### Added
