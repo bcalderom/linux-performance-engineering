@@ -1,3 +1,23 @@
+## [0.9.13] - 2025-12-02
+
+### Added
+
+- **ISR and Interrupt Context subsection (2.3.2.1):** Comprehensive explanation of Interrupt Service Routines, interrupt context vs process context, atomic rules, why ISRs cannot sleep, register saving, and IDT mechanics with vector mapping table.
+- **Interrupts vs Context Switches subsection (2.3.2.2):** Critical distinction clarifying that interrupts cause mode switches, not task switches, with scenarios table showing when context switches actually occur.
+- **MSI/MSI-X subsection (2.3.4.1):** Modern interrupt delivery mechanisms, comparison table (Legacy vs MSI vs MSI-X), multi-queue NIC architecture, and observable commands for diagnosis.
+- **Softirq Types subsection (2.3.5.1):** Complete table of 10 kernel-defined softirq types with numeric IDs, purposes, and `/proc/softirqs` interpretation guide.
+- **When Softirqs Run subsection (2.3.5.2):** Explanation of inline vs ksoftirqd execution, rate-limiting mechanism, and cause-effect table.
+- **NAPI subsection (2.3.5.3):** Interrupt mitigation for networking, hybrid interrupt/polling model, NAPI flow diagram, and budget configuration.
+- **Interrupt Storms section (2.3.6):** Causes, symptoms, diagnosis table, interrupt coalescing with `ethtool -c`, tuning trade-offs, and irqbalance guidance.
+- **ASCII diagram** at section start showing complete interrupt processing flow from device through ISR, softirq, scheduler check, to user task.
+
+### Changed
+
+- Expanded Key Terms (2.3.1) with ISR, Interrupt Context, Interrupt Vector, and MSI/MSI-X definitions.
+- Added terminology clarification distinguishing "Hardware Interrupt" (electrical signal) from "Hard IRQ" (ISR handler code).
+- Expanded Beginner Checklist (2.3.9) from 5 to 12 items covering ISRs, interrupt context, softirq interpretation, MSI-X, NAPI, and interrupt storm diagnosis.
+- Renumbered sections: Exercise is now 2.3.8, Checklist is now 2.3.9.
+
 ## [0.9.12] - 2025-12-01
 
 ### Changed
